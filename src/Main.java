@@ -9,17 +9,29 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("gib eine reihe von zahlen an, separiert mit einem leerzeichen");
-        String input = scanner.next();
-        String[] strArr = input.split("\\s+");
-        System.out.println(strArr.length);
+        String input = scanner.nextLine();
+        String[] strArr = input.split(" ");
 
-        int[] intArr = new int[strArr.length];
+        String[] cleanedArr = new String[strArr.length];
+        int countingErrors = 0;
+
+        for (int strIndex = 0; strIndex < strArr.length; strIndex++){
+            if(!strArr[strIndex].equals(" ") && !strArr[strIndex].toLowerCase().matches("[a-z]+")){
+                cleanedArr[strIndex] = strArr[strIndex];
+            } else {
+                countingErrors++;
+            }
+        }
+
+        int[] intArr = new int[strArr.length-countingErrors];
         int index = 0;
 
         for (String str : strArr){
-            if(!str.equals(" ")){
+            if(!str.equals(" ") && !str.toLowerCase().matches("[a-z]+")){
                 intArr[index] = Integer.parseInt(str);
                 index++;
+            } else {
+                countingErrors++;
             }
         }
         for(int num : intArr){
